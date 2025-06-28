@@ -9,6 +9,9 @@
             font-family: Arial, sans-serif;
             padding: 20px;
         }
+        #interval {
+            width: 60px;
+        }
         #datetime-display {
             margin-top: 20px;
             white-space: pre-line;
@@ -21,8 +24,7 @@
     </style>
 </head>
 <body>
-    <label for="interval">更新間隔（秒）：</label>
-    <input type="number" id="interval" min="1" value="1">
+    <input type="number" id="interval" min="1" value="1" placeholder="秒数">
     <button id="start">開始</button>
     <button id="stop">終了</button>
 
@@ -35,25 +37,29 @@
             const interval = document.getElementById('interval').value * 1000;
 
             if (interval > 0) {
+                clearOutput();
                 intervalId = setInterval(() => {
                     const currentDateTime = new Date().toLocaleString();
                     document.getElementById('datetime-display').textContent += currentDateTime + '\n';
                 }, interval);
-                
-                this.disabled = true;  // 開始ボタンを無効にする
-                document.getElementById('stop').disabled = false;  // 終了ボタンを有効にする
+
+                this.disabled = true;
+                document.getElementById('stop').disabled = false;
             }
         };
 
         document.getElementById('stop').onclick = function() {
             clearInterval(intervalId);
             intervalId = null;
-            
-            this.disabled = true;  // 終了ボタンを無効にする
-            document.getElementById('start').disabled = false;  // 開始ボタンを有効にする
+
+            this.disabled = true;
+            document.getElementById('start').disabled = false;
         };
 
-        // 初期状態で終了ボタンを無効に
+        function clearOutput() {
+            document.getElementById('datetime-display').textContent = '';
+        }
+
         document.getElementById('stop').disabled = true;
     </script>
 </body>
