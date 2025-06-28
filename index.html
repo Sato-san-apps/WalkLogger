@@ -1,8 +1,60 @@
-<!-- index.html（例） -->
 <!DOCTYPE html>
-<html>
-<head><title>Hello</title></head>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日時更新アプリ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #datetime-display {
+            margin-top: 20px;
+            white-space: pre-line;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
 <body>
-  <h1>Hello Hello iPhone!!!</h1>
+    <label for="interval">更新間隔（秒）：</label>
+    <input type="number" id="interval" min="1" value="1">
+    <button id="start">開始</button>
+    <button id="stop">終了</button>
+
+    <div id="datetime-display"></div>
+
+    <script>
+        let intervalId = null;
+
+        document.getElementById('start').onclick = function() {
+            const interval = document.getElementById('interval').value * 1000;
+
+            if (interval > 0) {
+                intervalId = setInterval(() => {
+                    const currentDateTime = new Date().toLocaleString();
+                    document.getElementById('datetime-display').textContent += currentDateTime + '\n';
+                }, interval);
+                
+                this.disabled = true;  // 開始ボタンを無効にする
+                document.getElementById('stop').disabled = false;  // 終了ボタンを有効にする
+            }
+        };
+
+        document.getElementById('stop').onclick = function() {
+            clearInterval(intervalId);
+            intervalId = null;
+            
+            this.disabled = true;  // 終了ボタンを無効にする
+            document.getElementById('start').disabled = false;  // 開始ボタンを有効にする
+        };
+
+        // 初期状態で終了ボタンを無効に
+        document.getElementById('stop').disabled = true;
+    </script>
 </body>
 </html>
