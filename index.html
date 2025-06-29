@@ -110,7 +110,9 @@
         function displayCurrentDateTimeAndHeading() {
             const currentDateTime = new Date().toLocaleString();
             let headingOutput = currentHeading !== null ? `方位: ${getJapaneseCompassDirection(currentHeading)}` : '方位データ未取得';
-            document.getElementById('datetime-display').textContent += `${headingOutput}, ${currentDateTime}\n`;
+            const displayElement = document.getElementById('datetime-display');
+            displayElement.textContent += `${headingOutput}, ${currentDateTime}\n`;
+            displayElement.scrollTop = displayElement.scrollHeight;
         }
 
         function clearOutput() {
