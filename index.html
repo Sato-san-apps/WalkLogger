@@ -10,7 +10,7 @@
             padding: 20px;
         }
         #interval {
-            width: 60px; /* 数字が4桁入る入力幅 */
+            width: 60px;
             margin-right: 10px;
         }
         .button {
@@ -46,18 +46,18 @@
                     .then(permissionState => {
                         if (permissionState === 'granted') {
                             window.addEventListener('deviceorientation', handleOrientation);
-                                resolve(true);
+                                resolve('許可されました');
                             } else {
-                                resolve(false);
+                                resolve('不許可');
             }
                         })
                         .catch(error => {
                             console.error(error);
-                            resolve(false);
+                            resolve('エラー: 不許可');
                         });
                 } else {
                     window.addEventListener('deviceorientation', handleOrientation);
-                    resolve(true);
+                    resolve('許可されました');
         }
             });
         }
@@ -71,10 +71,15 @@
 
         document.getElementById('start').onclick = async function() {
             const interval = document.getElementById('interval').value * 1000;
+
             if (interval > 0) {
-                const permissionGranted = await requestDeviceOrientationPermission();
-                if (permissionGranted) {
                     clearOutput();
+
+                const permissionStatus = await requestDeviceOrientationPermission();
+
+                document.getElementById('datetime-display').textContent = `センサーアクセス権: ${permissionStatus}\n`;
+
+                if (permissionStatus === '許可されました') {
                 displayCurrentDateTimeAndHeading();
                 intervalId = setInterval(displayCurrentDateTimeAndHeading, interval);
                     this.disabled = true;
