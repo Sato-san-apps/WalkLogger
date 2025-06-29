@@ -39,6 +39,13 @@
         let intervalId = null;
         let currentHeading = null;
 
+        function getCompassDirection(heading) {
+            const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+                                'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+            const index = Math.round(heading / 22.5) % 16;
+            return directions[index];
+        }
+
         function requestDeviceOrientationPermission() {
             return new Promise((resolve, reject) => {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -102,7 +109,7 @@
 
         function displayCurrentDateTimeAndHeading() {
             const currentDateTime = new Date().toLocaleString();
-            const headingOutput = currentHeading !== null ? `方位: ${currentHeading}°` : '方位データ未取得';
+            let headingOutput = currentHeading !== null ? `方位: ${getCompassDirection(currentHeading)}` : '方位データ未取得';
             document.getElementById('datetime-display').textContent += `${headingOutput}, ${currentDateTime}\n`;
         }
 
