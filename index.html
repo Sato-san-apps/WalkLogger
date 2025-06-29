@@ -37,7 +37,7 @@
     <div id="datetime-display"></div>
     <script>
         let intervalId = null;
-        let currentHeading = '(不許可)';
+        let currentHeading = null;
 
         function requestDeviceOrientationPermission() {
             return new Promise((resolve, reject) => {
@@ -68,6 +68,7 @@
                 currentHeading = Math.round(heading);
             } else {
                 console.warn('方位データが利用できません。');
+                currentHeading = null;
         }
         }
 
@@ -101,7 +102,8 @@
 
         function displayCurrentDateTimeAndHeading() {
             const currentDateTime = new Date().toLocaleString();
-            document.getElementById('datetime-display').textContent += `方位: ${currentHeading}°, ${currentDateTime}\n`;
+            const headingOutput = currentHeading !== null ? `方位: ${currentHeading}°` : '方位データ未取得';
+            document.getElementById('datetime-display').textContent += `${headingOutput}, ${currentDateTime}\n`;
         }
 
         function clearOutput() {
