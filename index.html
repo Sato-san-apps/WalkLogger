@@ -10,7 +10,7 @@
             padding: 20px;
         }
         #interval {
-            width: 60px;
+            width: 60px; /* 数字が4桁入る入力幅 */
             margin-right: 10px;
         }
         .button {
@@ -52,7 +52,7 @@
             }
                         })
                         .catch(error => {
-                            console.error(error);
+                            console.error('Permission error:', error);
                             resolve('エラー: 不許可');
                         });
                 } else {
@@ -63,10 +63,12 @@
         }
 
         function handleOrientation(event) {
-            if (event.absolute && event.alpha !== null) {
+            if (event.alpha !== null) {
                 const heading = 360 - event.alpha;
                 currentHeading = Math.round(heading);
-            }
+            } else {
+                console.warn('方位データが利用できません。');
+        }
         }
 
         document.getElementById('start').onclick = async function() {
