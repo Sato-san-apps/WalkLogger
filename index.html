@@ -30,33 +30,38 @@
     </style>
 </head>
 <body>
+    <!-- 入力フィールドとボタンの設定 -->
     <label for="interval">間隔(秒)：</label>
     <input type="number" id="interval" min="1" value="1" placeholder="秒数">
     <button id="start" class="button">開始</button>
     <button id="stop" class="button">終了</button>
 
+    <!-- 出力表示領域 -->
     <div id="datetime-display"></div>
 
     <script>
-        let intervalId = null;
-        let currentHeading = '(不許可)'; // 初期状態は不許可
+        let intervalId = null; // setInterval IDを保持するための変数
+        let currentHeading = '(不許可)'; // 初期状態での方位
 
-        // デバイスのセンサーデータへのアクセス許可を要求する
-        function requestDeviceOrientationPermission() {
+        // デバイスのセンサデータへのアクセス許可を確認し、必要に応じて要求する
+        function checkOrRequestPermission() {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // iOSデバイスでのアクセス許可の確認
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
                         if (permissionState === 'granted') {
+                            // 許可された場合にイベントリスナーを追加
                             window.addEventListener('deviceorientation', handleOrientation);
                         }
                     })
-                    .catch(console.error);
+                    .catch(console.error); // エラー時のログ出力
             } else {
+                // Androidや他のデバイスで直接イベントリスナーを追加
                 window.addEventListener('deviceorientation', handleOrientation);
             }
         }
 
-        // デバイスの方位を処理する
+        // デバイスの方位データを処理し、方位を取得する
         function handleOrientation(event) {
             if (event.absolute && event.alpha !== null) {
                 const heading = 360 - event.alpha; // 北を0°として東が90°
@@ -64,46 +69,50 @@
             }
         }
 
-        // 開始ボタンをクリックして出力を開始する
+        // ページがロードされたときにアクセス権を確認または要求する
+        window.onload = function() {
+            checkOrRequestPermission();
+        };
+
+        // 開始ボタンを押したときに出力を開始する
         document.getElementById('start').onclick = function() {
-            requestDeviceOrientationPermission();
-            const interval = document.getElementById('interval').value * 1000;
+            const interval = document.getElementById('interval').value * 1000; // ユーザーが指定した間隔
 
             if (interval > 0) {
-                clearOutput(); // 前の出力をクリア
+                clearOutput(); // 以前の出力をクリア
 
-                // 初回の方位と日時を表示
+                // 方位と日時の初回表示
                 displayCurrentDateTimeAndHeading();
 
-                // 指定間隔で方位と日時を表示し続ける
+                // 指定された間隔で方位と日時を継続的に表示
                 intervalId = setInterval(displayCurrentDateTimeAndHeading, interval);
 
-                this.disabled = true;
-                document.getElementById('stop').disabled = false;
+                this.disabled = true; // 開始ボタンを無効化
+                document.getElementById('stop').disabled = false; // 終了ボタンを有効化
             }
         };
 
-        // 終了ボタンをクリックして出力を停止する
+        // 終了ボタンを押したときに出力を停止する
         document.getElementById('stop').onclick = function() {
-            clearInterval(intervalId);
-            intervalId = null;
+            clearInterval(intervalId); // インターバルをクリア
+            intervalId = null; // IDをリセット
 
-            this.disabled = true;
-            document.getElementById('start').disabled = false;
+            this.disabled = true; // 終了ボタンを無効化
+            document.getElementById('start').disabled = false; // 開始ボタンを有効化
         };
 
-        // 方位と日時を表示する
+        // 現在の日付時刻と方位を出力する
         function displayCurrentDateTimeAndHeading() {
-            const currentDateTime = new Date().toLocaleString();
+            const currentDateTime = new Date().toLocaleString(); // 現在の日付時刻を取得
             document.getElementById('datetime-display').textContent += `方位: ${currentHeading}°, ${currentDateTime}\n`;
         }
 
-        // 出力エリアをクリアする
+        // 出力表示領域をクリアする
         function clearOutput() {
             document.getElementById('datetime-display').textContent = '';
         }
 
-        // 初期状態で停止ボタンを無効化する
+        // 初期状態で終了ボタンを無効化する
         document.getElementById('stop').disabled = true;
     </script>
 </body>
