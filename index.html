@@ -10,7 +10,7 @@
             padding: 20px;
         }
         #interval {
-            width: 60px; /* 4桁程度の数字が入力できる幅に設定 */
+            width: 60px;
             margin-right: 10px;
         }
         .button {
@@ -39,33 +39,25 @@
 
     <script>
         let intervalId = null;
-        let accessGranted = false;
-
+        let currentHeading = '(不許可)';
         function requestDeviceOrientationPermission() {
             if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                 DeviceOrientationEvent.requestPermission()
                     .then(permissionState => {
                         if (permissionState === 'granted') {
                             window.addEventListener('deviceorientation', handleOrientation);
-                            accessGranted = true;
                         }
                     })
-                    .catch((error) => {
-                        console.error(error);
-                        accessGranted = false;
-                    });
+                    .catch(console.error);
             } else {
                 window.addEventListener('deviceorientation', handleOrientation);
-                accessGranted = true;
             }
         }
 
         function handleOrientation(event) {
             if (event.absolute && event.alpha !== null) {
                 const heading = 360 - event.alpha;
-                displayCurrentDateTimeAndHeading(Math.round(heading));
-            } else {
-                displayCurrentDateTimeAndHeading('(不許可)');
+                currentHeading = Math.round(heading);
             }
         }
 
@@ -75,12 +67,8 @@
 
             if (interval > 0) {
                 clearOutput();
-                intervalId = setInterval(() => {
-                    if (!accessGranted) {
-                        displayCurrentDateTimeAndHeading('(不許可)');
-                    }
-                }, interval);
-
+                displayCurrentDateTimeAndHeading();
+                intervalId = setInterval(displayCurrentDateTimeAndHeading, interval);
                 this.disabled = true;
                 document.getElementById('stop').disabled = false;
             }
@@ -94,9 +82,9 @@
             document.getElementById('start').disabled = false;
         };
 
-        function displayCurrentDateTimeAndHeading(heading) {
+        function displayCurrentDateTimeAndHeading() {
             const currentDateTime = new Date().toLocaleString();
-            document.getElementById('datetime-display').textContent += `方位: ${heading}°, ${currentDateTime}\n`;
+            document.getElementById('datetime-display').textContent += `方位: ${currentHeading}°, ${currentDateTime}\n`;
         }
 
         function clearOutput() {
