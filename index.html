@@ -10,7 +10,7 @@
             padding: 20px;
         }
         #interval {
-            width: 60px; /* 4桁程度の数字が入力できる幅に設定 */
+            width: 60px;
             margin-right: 10px;
         }
         .button {
@@ -44,14 +44,14 @@
             const interval = document.getElementById('interval').value * 1000;
 
             if (interval > 0) {
-                clearOutput(); // 開始時に出力をクリア
-                intervalId = setInterval(() => {
-                    const currentDateTime = new Date().toLocaleString();
-                    document.getElementById('datetime-display').textContent += currentDateTime + '\n';
-                }, interval);
+                clearOutput();
+                
+                displayCurrentDateTime();
 
-                this.disabled = true;  // 開始ボタンを無効にする
-                document.getElementById('stop').disabled = false;  // 終了ボタンを有効にする
+                intervalId = setInterval(displayCurrentDateTime, interval);
+
+                this.disabled = true;
+                document.getElementById('stop').disabled = false;
             }
         };
 
@@ -59,15 +59,19 @@
             clearInterval(intervalId);
             intervalId = null;
 
-            this.disabled = true;  // 終了ボタンを無効にする
-            document.getElementById('start').disabled = false;  // 開始ボタンを有効にする
+            this.disabled = true;
+            document.getElementById('start').disabled = false;
         };
+
+        function displayCurrentDateTime() {
+            const currentDateTime = new Date().toLocaleString();
+            document.getElementById('datetime-display').textContent += currentDateTime + '\n';
+        }
 
         function clearOutput() {
             document.getElementById('datetime-display').textContent = '';
         }
 
-        // 初期状態で終了ボタンを無効に
         document.getElementById('stop').disabled = true;
     </script>
 </body>
