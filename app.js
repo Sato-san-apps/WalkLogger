@@ -1,9 +1,19 @@
+let intervalId;
+
 document.getElementById('startButton').addEventListener('click', startLogging);
 document.getElementById('stopButton').addEventListener('click', stopLogging);
 
 function startLogging() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                showPosition(position);
+                intervalId = setInterval(() => {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                }, 3000);
+            },
+            showError
+        );
     } else {
         document.getElementById('output').innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -12,7 +22,7 @@ function startLogging() {
 function showPosition(position) {
     const output = document.getElementById('output');
     const date = new Date();
-    output.innerHTML = `Latitude: ${position.coords.latitude}<br>Longitude: ${position.coords.longitude}<br>Timestamp: ${date.toLocaleString()}`;
+    output.innerHTML += `Latitude: ${position.coords.latitude}<br>Longitude: ${position.coords.longitude}<br>Timestamp: ${date.toLocaleString()}<br><br>`;
 }
 
 function showError(error) {
@@ -34,5 +44,6 @@ function showError(error) {
 }
 
 function stopLogging() {
-    document.getElementById('output').innerHTML = "Logging stopped.";
+    clearInterval(intervalId);
+    document.getElementById('output').innerHTML += "Logging stopped.<br><br>";
 } 
