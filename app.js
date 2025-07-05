@@ -22,7 +22,10 @@ function startLogging() {
 function showPosition(position) {
     const output = document.getElementById('output');
     const date = new Date();
-    output.innerHTML += `Latitude: ${position.coords.latitude}<br>Longitude: ${position.coords.longitude}<br>Timestamp: ${date.toLocaleString()}<br><br>`;
+    const latitude = position.coords.latitude.toFixed(2);
+    const longitude = position.coords.longitude.toFixed(2);
+    const altitude = position.coords.altitude ? position.coords.altitude.toFixed(2) : 'N/A';
+    output.innerHTML += `北緯: ${latitude}<br>東経: ${longitude}<br>高度: ${altitude}m<br>Timestamp: ${date.toLocaleString()}<br><br>`;
 }
 
 function showError(error) {
