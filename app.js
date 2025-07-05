@@ -24,7 +24,7 @@ function showPosition(position) {
     const date = new Date();
     const latitude = position.coords.latitude.toFixed(2);
     const longitude = position.coords.longitude.toFixed(2);
-    const altitude = position.coords.altitude ? position.coords.altitude.toFixed(2) : 'N/A';
+    const altitude = position.coords.altitude !== null ? position.coords.altitude.toFixed(2) : 'N/A';
     output.innerHTML += `北緯: ${latitude}<br>東経: ${longitude}<br>高度: ${altitude}m<br>Timestamp: ${date.toLocaleString()}<br><br>`;
 }
 
