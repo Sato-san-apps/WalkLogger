@@ -1,6 +1,10 @@
 {
-  "name": "Walk-Logger",
+  "name": "Walk Logger",
   "short_name": "WalkLogger",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#333",
   "icons": [
     {
       "src": "icon-192.png",
@@ -12,11 +16,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "description": "A simple Walk Logger app to track direction and time.",
-  "orientation": "portrait"
-}
+  ]
+} 

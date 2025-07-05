@@ -1,14 +1,42 @@
-self.addEventListener('install', function(event) {
-  console.log('Service Worker installing.');
-  // キャッシュ操作など
+const CACHE_NAME = 'walk-logger-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/icon-192.png',
+  '/icon-512.png'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
-self.addEventListener('activate', function(event) {
-  console.log('Service Worker activating.');
-  // クリーンアップなど
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        return response || fetch(event.request);
+      })
+  );
 });
 
-self.addEventListener('fetch', function(event) {
-  console.log('Service Worker fetching.', event.request.url);
-  // ネットワークリクエストのキャッシュ処理など
-});
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+}); 
