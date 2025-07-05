@@ -9,6 +9,7 @@ body {
     height: 100vh;
     background-color: #f4f4f9;
     overflow: hidden;
+    position: relative;
 }
 
 h1 {
@@ -16,7 +17,7 @@ h1 {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: #f4f4f9;
+    background-color: rgba(244, 244, 249, 0.9);
     text-align: center;
     padding: 20px 0;
     z-index: 1000;
@@ -27,7 +28,7 @@ h1 {
     position: fixed;
     bottom: 50px;
     width: 100%;
-    background-color: #f4f4f9;
+    background-color: rgba(244, 244, 249, 0.9);
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
@@ -39,7 +40,7 @@ h1 {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #f4f4f9;
+    background-color: rgba(244, 244, 249, 0.9);
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
@@ -54,13 +55,11 @@ button {
 }
 
 #output {
-    margin-top: 60px;
-    margin-bottom: 100px;
-    width: 80%;
-    max-width: 600px;
-    border: 1px solid #ccc;
+    position: absolute;
+    top: 60px;
+    bottom: 100px;
+    width: 100%;
     padding: 10px;
-    background-color: #fff;
     overflow-y: auto;
-    height: calc(100vh - 160px);
+    z-index: 500;
 } 
