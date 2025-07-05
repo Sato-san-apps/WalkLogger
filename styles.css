@@ -24,11 +24,13 @@ h1 {
     justify-content: space-around;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    flex-wrap: wrap; /* ボタンが画面幅に収まるように折り返しを許可 */
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
+    margin: 5px; /* ボタン間のスペースを確保 */
 }
 
 #output {
