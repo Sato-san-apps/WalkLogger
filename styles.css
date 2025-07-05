@@ -17,7 +17,7 @@ h1 {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: rgba(244, 244, 249, 0.9);
+    background-color: transparent;
     text-align: center;
     padding: 20px 0;
     z-index: 1000;
@@ -28,7 +28,7 @@ h1 {
     position: fixed;
     bottom: 50px;
     width: 100%;
-    background-color: rgba(244, 244, 249, 0.9);
+    background-color: transparent;
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
@@ -40,7 +40,7 @@ h1 {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: rgba(244, 244, 249, 0.9);
+    background-color: transparent;
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
@@ -49,9 +49,14 @@ h1 {
 }
 
 button {
+    background-color: #f4f4f9;
+    border: none;
+    color: #333;
     padding: 10px 20px;
     font-size: 16px;
     margin: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #output {
