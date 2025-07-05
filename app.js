@@ -20,12 +20,21 @@ function startLogging() {
     }
 }
 
+function toDegreesMinutesSeconds(coordinate) {
+    const absolute = Math.abs(coordinate);
+    const degrees = Math.floor(absolute);
+    const minutesNotTruncated = (absolute - degrees) * 60;
+    const minutes = Math.floor(minutesNotTruncated);
+    const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    return `${degrees}°${minutes}'${seconds}"`;
+}
+
 function showPosition(position) {
     const output = document.getElementById('output');
     const date = new Date();
-    const latitude = position.coords.latitude.toFixed(2);
-    const longitude = position.coords.longitude.toFixed(2);
-    const altitude = position.coords.altitude !== null ? position.coords.altitude.toFixed(2) : 'N/A';
+    const latitude = toDegreesMinutesSeconds(position.coords.latitude);
+    const longitude = toDegreesMinutesSeconds(position.coords.longitude);
+    const altitude = position.coords.altitude !== null ? Math.round(position.coords.altitude) : 'N/A';
     output.innerHTML += `北緯: ${latitude}, 東経: ${longitude}, 高度: ${altitude}m, ${date.toLocaleString()}<br>`;
 }
 
