@@ -36,6 +36,7 @@ function showPosition(position) {
     const longitude = toDegreesMinutesSeconds(position.coords.longitude);
     const altitude = position.coords.altitude !== null ? Math.round(position.coords.altitude) : 'N/A';
     output.innerHTML += `北緯: ${latitude}, 東経: ${longitude}, 高度: ${altitude}m, ${date.toLocaleString()}<br>`;
+    output.scrollTop = output.scrollHeight;
 }
 
 function showError(error) {
