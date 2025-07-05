@@ -4,6 +4,7 @@ document.getElementById('startButton').addEventListener('click', startLogging);
 document.getElementById('stopButton').addEventListener('click', stopLogging);
 
 function startLogging() {
+    document.getElementById('output').innerHTML = "";
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             position => {
@@ -25,7 +26,7 @@ function showPosition(position) {
     const latitude = position.coords.latitude.toFixed(2);
     const longitude = position.coords.longitude.toFixed(2);
     const altitude = position.coords.altitude !== null ? position.coords.altitude.toFixed(2) : 'N/A';
-    output.innerHTML += `北緯: ${latitude}<br>東経: ${longitude}<br>高度: ${altitude}m<br>Timestamp: ${date.toLocaleString()}<br><br>`;
+    output.innerHTML += `北緯: ${latitude}, 東経: ${longitude}, 高度: ${altitude}m, ${date.toLocaleString()}<br>`;
 }
 
 function showError(error) {
