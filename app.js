@@ -25,7 +25,7 @@ function toDegreesMinutesSeconds(coordinate) {
     const degrees = Math.floor(absolute);
     const minutesNotTruncated = (absolute - degrees) * 60;
     const minutes = Math.floor(minutesNotTruncated);
-    const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    const seconds = Math.round((minutesNotTruncated - minutes) * 60);
     return `${degrees}°${minutes}'${seconds}"`;
 }
 
