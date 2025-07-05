@@ -5,26 +5,35 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
     background-color: #f4f4f9;
+    overflow: hidden;
 }
 
 h1 {
     color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f4f4f9;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #controls, #displayOptions {
     position: fixed;
-    bottom: 0;
+    top: 50px;
     width: 100%;
     background-color: #f4f4f9;
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    flex-wrap: wrap; /* ボタンが画面幅に収まるように折り返しを許可 */
+    flex-wrap: wrap;
 }
 
 button {
@@ -34,10 +43,12 @@ button {
 }
 
 #output {
+    margin-top: 120px; /* タイトルとボタンの高さ分の余白を確保 */
     width: 80%;
     max-width: 600px;
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
-    margin-bottom: 80px; /* ボタンの高さ分の余白を確保 */
+    overflow-y: auto;
+    height: calc(100vh - 120px);
 } 
