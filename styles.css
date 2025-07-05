@@ -18,14 +18,14 @@ h1 {
     width: 100%;
     background-color: #f4f4f9;
     text-align: center;
-    padding: 15px 0;
+    padding: 20px 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #controls {
     position: fixed;
-    top: 60px;
+    top: 70px;
     width: 100%;
     background-color: #f4f4f9;
     padding: 10px 0;
@@ -37,7 +37,7 @@ h1 {
 
 #displayOptions {
     position: fixed;
-    top: 110px;
+    top: 120px;
     width: 100%;
     background-color: #f4f4f9;
     padding: 10px 0;
@@ -54,12 +54,12 @@ button {
 }
 
 #output {
-    margin-top: 170px;
+    margin-top: 180px;
     width: 80%;
     max-width: 600px;
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
     overflow-y: auto;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 180px);
 } 
