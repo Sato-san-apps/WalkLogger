@@ -8,7 +8,7 @@ body {
     justify-content: flex-start;
     height: 100vh;
     background-color: #f4f4f9;
-    overflow: visible;
+    overflow: hidden;
 }
 
 h1 {
@@ -25,25 +25,25 @@ h1 {
 
 #controls {
     position: fixed;
-    top: 70px;
+    bottom: 50px;
     width: 100%;
     background-color: #f4f4f9;
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
 
 #displayOptions {
     position: fixed;
-    top: 120px;
+    bottom: 0;
     width: 100%;
     background-color: #f4f4f9;
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
 
@@ -54,12 +54,13 @@ button {
 }
 
 #output {
-    margin-top: 180px;
+    margin-top: 60px;
+    margin-bottom: 100px;
     width: 80%;
     max-width: 600px;
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
     overflow-y: auto;
-    height: calc(100vh - 180px);
+    height: calc(100vh - 160px);
 } 
