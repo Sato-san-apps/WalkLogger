@@ -14,8 +14,15 @@ h1 {
     color: #333;
 }
 
-#controls {
-    margin-bottom: 20px;
+#controls, #displayOptions {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f4f4f9;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -25,14 +32,11 @@ button {
     cursor: pointer;
 }
 
-#displayOptions {
-    margin-bottom: 20px;
-}
-
 #output {
     width: 80%;
     max-width: 600px;
     border: 1px solid #ccc;
     padding: 10px;
     background-color: #fff;
+    margin-bottom: 80px; /* ボタンの高さ分の余白を確保 */
 } 
