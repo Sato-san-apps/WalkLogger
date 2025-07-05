@@ -9,7 +9,7 @@ body {
     height: 100vh;
     background-color: #f4f4f9;
     /* overflow: hidden; */
-    overflow: auto;
+    overflow: visible;
 }
 
 h1 {
