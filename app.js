@@ -44,6 +44,9 @@ function showError(error) {
 }
 
 function stopLogging() {
-    clearInterval(intervalId);
+    if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+    }
     document.getElementById('output').innerHTML += "Logging stopped.<br><br>";
 } 
