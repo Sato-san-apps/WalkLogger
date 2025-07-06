@@ -12,7 +12,13 @@ function startLogging() {
         const date = new Date();
         const dateString = date.toISOString().slice(0, 10).replace(/-/g, '');
         let sequence = 1;
+        const existingFiles = JSON.parse(localStorage.getItem('gpxFiles') || '{}');
+        while (existingFiles[`${dateString}-${String(sequence).padStart(3, '0')}.gpx`]) {
+            sequence++;
+        }
         fileName = `${dateString}-${String(sequence).padStart(3, '0')}.gpx`;
+        existingFiles[fileName] = true;
+        localStorage.setItem('gpxFiles', JSON.stringify(existingFiles));
         gpxData = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="WalkLogger">\n<trk>\n<trkseg>\n`;
     }
     if (navigator.geolocation) {
